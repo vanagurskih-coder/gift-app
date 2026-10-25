@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Radar</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            background-color: #17212b; /* Темная тема Telegram */
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background-color: #232e3c;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .gift-image {
+            width: 120px;
+            height: 120px;
+            background-color: #2b3a4a; /* Заглушка вместо картинки */
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+        .gift-name { font-size: 24px; font-weight: bold; margin-bottom: 5px; }
+        .gift-price { font-size: 20px; color: #4dcd5e; font-weight: bold; margin-bottom: 15px; }
+        .stats { font-size: 14px; color: #8b9eb0; margin-bottom: 20px; text-align: left; }
+        .stats div { margin-bottom: 5px; }
+        .buy-btn {
+            background-color: #2aabee;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .buy-btn:active { background-color: #2299d6; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="gift-image">🎁</div>
+        <div class="gift-name" id="name">Plush Pepe</div>
+        <div class="gift-price" id="price">65.00 TON</div>
+        <div class="stats">
+            <div>📦 В коллекции: <b id="supply">1200</b> шт.</div>
+            <div>💧 Ликвидность: <b style="color: #4dcd5e;">Высокая</b></div>
+            <div>🔢 Номер лота: <b id="lot_num">171</b></div>
+        </div>
+        <button class="buy-btn" onclick="buy()">Купить на Tonnel</button>
+    </div>
+
+    <script>
+        // Инициализация Telegram WebApp
+        let tg = window.Telegram.WebApp;
+        tg.expand(); // Разворачиваем на весь экран
+
+        // Данные для примера (в будущем бот будет передавать их)
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById('name').innerText = urlParams.get('name') || "Plush Pepe";
+        document.getElementById('price').innerText = (urlParams.get('price') || "65.00") + " TON";
+        document.getElementById('lot_num').innerText = urlParams.get('lot') || "171";
+
+        function buy() {
+            // Открываем ссылку на карточку подарка в Telegram
+            tg.openTelegramLink(`https://t.me/nft/PlushPepe-${document.getElementById('lot_num').innerText}`);
+        }
+    </script>
+</body>
+</html>
