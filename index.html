@@ -106,12 +106,11 @@
         }
 
         function buy() {
-            const giftName = document.getElementById('name').innerText.replace(/\s+/g, '');
-            const lotNum = document.getElementById('lot_num').innerText;
+            // Открываем сайт Tonnel в браузере
+            const tonnelSiteUrl = "https://marketplace.tonnel.network/";
             
-            // Открываем бота Tonnel с поиском
-            const tonnelUrl = `https://t.me/tonnel_network_bot?start=${giftName}`;
-            tg.openTelegramLink(tonnelUrl);
+            // Используем openLink для внешних сайтов (не t.me)
+            tg.openLink(tonnelSiteUrl);
         }
     </script>
 </body>
