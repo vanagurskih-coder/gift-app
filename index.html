@@ -72,15 +72,26 @@
         let tg = window.Telegram.WebApp;
         tg.expand(); // Разворачиваем на весь экран
 
-        // Данные для примера (в будущем бот будет передавать их)
+        // Получаем данные из URL, которые передает наш бот
         const urlParams = new URLSearchParams(window.location.search);
+        
+        // Заполняем карточку данными
         document.getElementById('name').innerText = urlParams.get('name') || "Plush Pepe";
         document.getElementById('price').innerText = (urlParams.get('price') || "65.00") + " TON";
         document.getElementById('lot_num').innerText = urlParams.get('lot') || "171";
 
         function buy() {
-            // Открываем ссылку на карточку подарка в Telegram
-            tg.openTelegramLink(`https://t.me/nft/PlushPepe-${document.getElementById('lot_num').innerText}`);
+            // Берем название подарка и убираем из него все пробелы
+            const giftName = document.getElementById('name').innerText.replace(/\s+/g, '');
+            
+            // Берем номер лота
+            const lotNum = document.getElementById('lot_num').innerText;
+            
+            // Формируем правильную ссылку вида: https://t.me/nft/BowTie-37285
+            const nftUrl = `https://t.me/nft/${giftName}-${lotNum}`;
+            
+            // Открываем ссылку
+            tg.openTelegramLink(nftUrl);
         }
     </script>
 </body>
